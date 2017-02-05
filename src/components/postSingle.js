@@ -3,16 +3,20 @@ import {Image, Text, View, TouchableHighlight, TouchableWithoutFeedback, UIManag
 import {Card, CardSection} from './common'
 
 
-class EventSingle extends Component{
+class PostSingle extends Component{
+
+	getSecondPart(str) {
+    	return str.split('_')[1];
+	}
 
 	render(){
 
-		var event = this.props.event
-		var name = event.name
-		var description = event.description
-
-		var id = event.id
-		var imageUrl = `http://graph.facebook.com/${id}/picture?type=large`
+		var post = this.props.post
+		var story = post.story
+		var message = post.message
+		var id = post.id
+		var objectId = this.getSecondPart(id + "")
+		var imageUrl = `http://graph.facebook.com/${objectId}/picture?type=normal`
 		
 		const {imageStyle, titleTextStyle, contentStyle, imageContainerStyle, imgStyle} = styles;
 
@@ -24,10 +28,10 @@ class EventSingle extends Component{
 			          source={{uri: imageUrl}}
 			        />
 					<Text style={titleTextStyle}>
-						{name} 
+						{story} 
 					</Text>
 					<Text>
-						{description}
+						{message}
 					</Text>
 				</View>
 			</CardSection>
@@ -62,5 +66,5 @@ const styles = {
 	}
 };	
 
-export default EventSingle;
+export default PostSingle;
 
