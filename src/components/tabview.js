@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
     flexGrow: 1,
   },
   indicator: {
-    backgroundColor: '#ff4081',
+    backgroundColor: '#333',
   },
   label: {
     fontSize: 13,
@@ -34,7 +34,7 @@ export default class Tabview extends Component {
 
   static title = 'Scroll views';
   static backgroundColor = '#fff';
-  static tintColor = '#222';
+  static tintColor = '#B4B7C0';
   static appbarElevation = 0;
 
   static propTypes = {
@@ -44,8 +44,8 @@ export default class Tabview extends Component {
   state = {
     index: 0,
     routes: [
-      { key: '1', title: 'First' },
-      { key: '2', title: 'Second' },
+      { key: '1', title: 'Posts' },
+      { key: '2', title: 'Events' },
     ],
   };
 
@@ -75,7 +75,7 @@ export default class Tabview extends Component {
 
   _renderLabel = (props: any) => ({ route, index }) => {
     const inputRange = props.navigationState.routes.map((x, i) => i);
-    const outputRange = inputRange.map(inputIndex => inputIndex === index ? '#D6356C' : '#222');
+    const outputRange = inputRange.map(inputIndex => inputIndex === index ? '#333' : '#B4B7C0');
     const color = props.position.interpolate({
       inputRange,
       outputRange,

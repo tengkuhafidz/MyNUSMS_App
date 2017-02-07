@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {Image, Text, View, TouchableHighlight, TouchableWithoutFeedback, UIManager, LayoutAnimation, Platform} from 'react-native'
+import {TouchableOpacity, Button, Linking, Image, Text, View, TouchableHighlight, TouchableWithoutFeedback, UIManager, LayoutAnimation, Platform} from 'react-native'
 import {Card, CardSection} from './common'
 
 
@@ -12,29 +12,47 @@ class PostSingle extends Component{
 	render(){
 
 		var post = this.props.post
-		var story = post.story
-		var message = post.message
-		var id = post.id
-		var objectId = this.getSecondPart(id + "")
+		var message = post.message ? post.message : post.story
+		var objectId = post.object_id
 		var imageUrl = `http://graph.facebook.com/${objectId}/picture?type=normal`
-		
-		const {imageStyle, titleTextStyle, contentStyle, imageContainerStyle, imgStyle} = styles;
+		var postUrl = post.link
+		var postTime = post.created_time
+
+		var byId = "nusms.ias"
+		var byName = "NUSMS Islam Awareness Series"
+		var byImageUrl = `https://graph.facebook.com/${byId}/picture?type=small`
+		var byUrl = `http://facebook.com/${byId}`
+
+
+		const {card, imageStyle, titleTextStyle, byTextStyle, smallTextStyle, messageTextStyle, contentStyle, imageContainerStyle, imgStyle} = styles;
 
 		return (
 
-			<CardSection>
+			<Card>
 				<View style={contentStyle}>
+					<View style={{flex: 1, flexDirection: 'row'}}>
+						<View style={{flex: 1}}>
+							<TouchableOpacity onPress={()=>Linking.openURL(byUrl)}>
+								<Image style={{ width: 30, height: 30, resizeMode: 'cover'}}
+				          source={{uri: byImageUrl}}
+				          
+				        	/>
+				        	</TouchableOpacity>
+				        </View>
+				        <View style={{flex: 8}}>
+							<Text style={byTextStyle} onPress={()=>Linking.openURL(byUrl)}>{byName} </Text>
+							<Text style={smallTextStyle}>{postTime}</Text>
+						</View>
+					</View>
+					<Text style={messageTextStyle}>
+						{message}
+					</Text>
 					<Image style={{ height:150 }}
 			          source={{uri: imageUrl}}
 			        />
-					<Text style={titleTextStyle}>
-						{story} 
-					</Text>
-					<Text>
-						{message}
-					</Text>
+			        <Button onPress={()=>Linking.openURL(postUrl)} title="View Post" />
 				</View>
-			</CardSection>
+			</Card>
 
     	);
 	}
@@ -44,10 +62,21 @@ class PostSingle extends Component{
 const styles = {
 	contentStyle: {
 		flexDirection: 'column',
-		justifyContent: 'space-around'
+		justifyContent: 'space-around',
+		margin: 10,
 	},
-	titleTextStyle: {
-		fontSize: 18 
+	messageTextStyle: {
+		marginTop: 10,
+		marginBottom: 10,
+		fontSize: 12
+	},
+	byTextStyle: {
+		fontSize: 12,
+		fontWeight: 'bold'
+	},
+	smallTextStyle: {
+		fontSize: 10,
+		color: '#333333' 
 	},
 	imageStyle: {
 		height: 50,

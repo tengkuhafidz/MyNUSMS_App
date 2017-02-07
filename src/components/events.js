@@ -43,7 +43,7 @@ class Events extends Component{
 		// 	  this.setState({events: data.data})
 		// });
 
-	    fetch(`https://graph.facebook.com/nusms.ias/events?fields=id,name,description,cover,start_time,end_time,ticket_uri,attending_count,interested_count&access_token=${access_token}`, {
+	    fetch(`https://graph.facebook.com/nusms.ias/events?fields=owner,name,description,cover,place,start_time,end_time,ticket_uri,attending_count,interested_count&access_token=${access_token}`, {
 			  method: 'GET',
 			  headers: {
 			    'Accept': 'application/json',
@@ -83,9 +83,14 @@ class Events extends Component{
 		if(this.state.events.length < 1)
 			return <Spinner />
 
+		const {page} = styles;
+
+
 		return (
-				<ScrollView>
-					{this.getUpcomingEvents()}
+				<ScrollView style={page}>
+					<Card>
+						{this.getUpcomingEvents()}
+					</Card>
 				</ScrollView>
 			
     	);
@@ -94,5 +99,11 @@ class Events extends Component{
 
 }
 
+const styles = {
+  page: {
+    backgroundColor: '#ddd',
+  },
+
+};	
 export default Events;
 

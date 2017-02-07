@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {Button, Linking, Image, Text, View, TouchableHighlight, TouchableWithoutFeedback, UIManager, LayoutAnimation, Platform} from 'react-native'
+import {TouchableOpacity, Button, Linking, Image, Text, View, TouchableHighlight, TouchableWithoutFeedback, UIManager, LayoutAnimation, Platform} from 'react-native'
 import {Card, CardSection} from './common'
 
 
@@ -7,9 +7,17 @@ class EventSingle extends Component{
 
 	render(){
 
+				const {linkStyle, imageStyle, titleTextStyle, smallTextStyle, contentStyle, imageContainerStyle, imgStyle} = styles;
+
+
 		var event = this.props.event
 		var name = event.name
+		var owner = event.owner.name
 		var description = event.description
+		var startTime = event.start_time
+		var endTime = event.end_time ? <Text style={smallTextStyle}>End: {event.end_time}</Text> : <View></View>
+
+		var place = event.place ? <Text style={smallTextStyle}>Venue: {event.place.name}</Text> : <View></View>
 
 		var attendingCount = event.attending_count
 		var interestedCount = event.interested_count
@@ -17,34 +25,33 @@ class EventSingle extends Component{
 		var id = event.id
 		var eventUrl = `http://facebook.com/events/${id}`
 		var imageUrl = event.cover.source
-		var feedbackUrl = event.ticket_uri
+		var link = event.ticket_uri ? <Text style={smallTextStyle}>Link: <Text style={linkStyle} onPress={()=>Linking.openURL(event.ticket_uri)}>{event.ticket_uri}</Text></Text> : <View></View>
 
 		
-		const {imageStyle, titleTextStyle, contentStyle, imageContainerStyle, imgStyle} = styles;
 
 		return (
+			
+			<CardSection >
 
-			<CardSection>
-				<View style={contentStyle}>
-					<Image style={{ height:150 }}
-			          source={{uri: imageUrl}}
-			        />
-					<Text style={titleTextStyle}>
-						{name} 
-					</Text>
-					<Text>
-						{description}
-					</Text>
-					<Text>
-						Attending: {attendingCount}
-					</Text>
-					<Text>
-						Interested: {interestedCount}
-					</Text>
-					<Button title="RSVP" onPress={()=>Linking.openURL(eventUrl)}/>
-					<Button title="Feedback" onPress={()=>Linking.openURL(feedbackUrl)}/>
-				</View>
+						<View style={{flex: 1, flexDirection: 'row'}}>
+							<View style={{flex: 1}}>
+								<TouchableOpacity onPress={()=>Linking.openURL(eventUrl)}>
+									<Image style={{width: 60, height: 60, resizeMode: 'cover', borderRadius: 5}}
+						          source={{uri: imageUrl}}/>
+						         </TouchableOpacity>
+						    </View>
+						    <View style={{flex: 4}}>
+								<Text style={titleTextStyle} onPress={()=>Linking.openURL(eventUrl)}>{name}</Text>
+								<Text style={smallTextStyle}>By: {owner}</Text>
+								<Text style={smallTextStyle}>Start: {startTime}</Text>
+								{endTime}
+								{place}
+								{link}
+							</View>
+						</View>
+	
 			</CardSection>
+
 
     	);
 	}
@@ -57,11 +64,18 @@ const styles = {
 		justifyContent: 'space-around'
 	},
 	titleTextStyle: {
-		fontSize: 18 
+		fontSize: 12,
+		fontWeight: 'bold' 
+	},
+	smallTextStyle: {
+		fontSize: 10,
 	},
 	imageStyle: {
 		height: 50,
 		width: 50
+	},
+	linkStyle:{
+		color: 'blue'
 	},
 	imageContainerStyle: {
 		justifyContent: 'center',

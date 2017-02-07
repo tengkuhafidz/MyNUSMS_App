@@ -43,7 +43,7 @@ class Posts extends Component{
 		// 	  this.setState({events: data.data})
 		// });
 
-	    fetch(`https://graph.facebook.com/nusms.ias/feed?access_token=${access_token}`, {
+	    fetch(`https://graph.facebook.com/nusms.ias/feed?fields=story,name,message,object_id,link,created_time&access_token=${access_token}`, {
 			  method: 'GET',
 			  headers: {
 			    'Accept': 'application/json',
@@ -74,8 +74,6 @@ class Posts extends Component{
 	getPosts(){
  		return this.state.posts.map(post => <PostSingle key={post.id} post={post}/>)
 
-		// return this.state.events.map(event=> <Text key={event.name}>{event.name}</Text>)
-
 	}
 
 	render(){
@@ -83,9 +81,12 @@ class Posts extends Component{
 		if(this.state.posts.length < 1)
 			return <Spinner />
 
+		const {page} = styles;
+
+
 		return (
-				<ScrollView>
-					{this.getPosts()}
+				<ScrollView style={page}>
+						{this.getPosts()}
 				</ScrollView>
 			
     	);
@@ -93,6 +94,13 @@ class Posts extends Component{
 
 
 }
+
+const styles = {
+  page: {
+    backgroundColor: '#ddd',
+  },
+
+};	
 
 export default Posts;
 
