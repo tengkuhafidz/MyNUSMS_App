@@ -1,5 +1,8 @@
 import React from 'react';
-import {View, ActivityIndicator} from 'react-native';
+import {View, ActivityIndicator, Dimensions} from 'react-native';
+
+
+var heightMargin = Dimensions.get('window').height * 0.3;
 
 const Spinner = ({size}) => {
 	return (
@@ -12,7 +15,7 @@ const Spinner = ({size}) => {
 const styles = {
 	spinnerStyle :{
 		flex: 1,
-		justifyContent: 'center',
+		marginTop: heightMargin,
 		alignItems: 'center'
 	}
 };

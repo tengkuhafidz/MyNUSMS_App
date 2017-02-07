@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import {Text, View, ListView, ScrollView} from 'react-native'
 import {Card, CardSection} from './common'
 import EventSingle from './eventSingle.js'
+import { Spinner } from './common';
+
 // import VenueAvailable from './venueAvailable.js'
 
 // import venuesData from '../data/venuesData.js'
@@ -41,7 +43,7 @@ class Events extends Component{
 		// 	  this.setState({events: data.data})
 		// });
 
-	    fetch(`https://graph.facebook.com/nusms.ias/events?access_token=${access_token}`, {
+	    fetch(`https://graph.facebook.com/nusms.ias/events?fields=id,name,description,cover,start_time,end_time,ticket_uri,attending_count,interested_count&access_token=${access_token}`, {
 			  method: 'GET',
 			  headers: {
 			    'Accept': 'application/json',
@@ -77,6 +79,9 @@ class Events extends Component{
 	}
 
 	render(){
+
+		if(this.state.events.length < 1)
+			return <Spinner />
 
 		return (
 				<ScrollView>

@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import {Text, View, ListView, ScrollView} from 'react-native'
 import {Card, CardSection} from './common'
 import PostSingle from './postSingle.js'
+import { Spinner } from './common';
+
 // import VenueAvailable from './venueAvailable.js'
 
 // import venuesData from '../data/venuesData.js'
@@ -77,6 +79,9 @@ class Posts extends Component{
 	}
 
 	render(){
+
+		if(this.state.posts.length < 1)
+			return <Spinner />
 
 		return (
 				<ScrollView>

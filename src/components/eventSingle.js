@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {Image, Text, View, TouchableHighlight, TouchableWithoutFeedback, UIManager, LayoutAnimation, Platform} from 'react-native'
+import {Button, Linking, Image, Text, View, TouchableHighlight, TouchableWithoutFeedback, UIManager, LayoutAnimation, Platform} from 'react-native'
 import {Card, CardSection} from './common'
 
 
@@ -11,8 +11,14 @@ class EventSingle extends Component{
 		var name = event.name
 		var description = event.description
 
+		var attendingCount = event.attending_count
+		var interestedCount = event.interested_count
+
 		var id = event.id
-		var imageUrl = `http://graph.facebook.com/${id}/picture?type=large`
+		var eventUrl = `http://facebook.com/events/${id}`
+		var imageUrl = event.cover.source
+		var feedbackUrl = event.ticket_uri
+
 		
 		const {imageStyle, titleTextStyle, contentStyle, imageContainerStyle, imgStyle} = styles;
 
@@ -29,6 +35,14 @@ class EventSingle extends Component{
 					<Text>
 						{description}
 					</Text>
+					<Text>
+						Attending: {attendingCount}
+					</Text>
+					<Text>
+						Interested: {interestedCount}
+					</Text>
+					<Button title="RSVP" onPress={()=>Linking.openURL(eventUrl)}/>
+					<Button title="Feedback" onPress={()=>Linking.openURL(feedbackUrl)}/>
 				</View>
 			</CardSection>
 
