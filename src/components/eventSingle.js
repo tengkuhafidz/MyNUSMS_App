@@ -7,7 +7,7 @@ class EventSingle extends Component{
 
 	render(){
 
-				const {linkStyle, imageStyle, titleTextStyle, smallTextStyle, contentStyle, imageContainerStyle, imgStyle} = styles;
+		const {linkStyle, imageStyle, titleTextStyle, smallTextStyle, contentStyle, imageContainerStyle, imgStyle} = styles;
 
 
 		var event = this.props.event
@@ -24,7 +24,7 @@ class EventSingle extends Component{
 
 		var id = event.id
 		var eventUrl = `http://facebook.com/events/${id}`
-		var imageUrl = event.cover.source
+		var imageUrl = event.cover ? <Image style={{width: 60, height: 60, resizeMode: 'cover', borderRadius: 5}} source={{uri: event.cover.source}}/> : <View style={{backgroundColor: "#333"}}/>
 		var link = event.ticket_uri ? <Text style={smallTextStyle}>Link: <Text style={linkStyle} onPress={()=>Linking.openURL(event.ticket_uri)}>{event.ticket_uri}</Text></Text> : <View></View>
 
 		
@@ -33,22 +33,21 @@ class EventSingle extends Component{
 			
 			<CardSection >
 
-						<View style={{flex: 1, flexDirection: 'row'}}>
-							<View style={{flex: 1}}>
-								<TouchableOpacity onPress={()=>Linking.openURL(eventUrl)}>
-									<Image style={{width: 60, height: 60, resizeMode: 'cover', borderRadius: 5}}
-						          source={{uri: imageUrl}}/>
-						         </TouchableOpacity>
-						    </View>
-						    <View style={{flex: 4}}>
-								<Text style={titleTextStyle} onPress={()=>Linking.openURL(eventUrl)}>{name}</Text>
-								<Text style={smallTextStyle}>By: {owner}</Text>
-								<Text style={smallTextStyle}>Start: {startTime}</Text>
-								{endTime}
-								{place}
-								{link}
-							</View>
-						</View>
+				<View style={{flex: 1, flexDirection: 'row'}}>
+					<View style={{flex: 1}}>
+						<TouchableOpacity onPress={()=>Linking.openURL(eventUrl)}>
+							{imageUrl}
+				         </TouchableOpacity>
+				    </View>
+				    <View style={{flex: 4}}>
+						<Text style={titleTextStyle} onPress={()=>Linking.openURL(eventUrl)}>{name}</Text>
+						<Text style={smallTextStyle}>By: {owner}</Text>
+						<Text style={smallTextStyle}>Start: {startTime}</Text>
+						{endTime}
+						{place}
+						{link}
+					</View>
+				</View>
 	
 			</CardSection>
 

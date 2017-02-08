@@ -3,8 +3,10 @@ import { Animated, View, StyleSheet, Dimensions } from 'react-native';
 import { TabViewAnimated, TabBar } from 'react-native-tab-view';
 import Posts from './posts';
 import Events from './events';
+import Musollas from './musollas';
 
-var halfWidth = Dimensions.get('window').width * 0.5;
+
+var halfWidth = Dimensions.get('window').width * 0.333;
 
 const styles = StyleSheet.create({
   container: {
@@ -46,6 +48,7 @@ export default class Tabview extends Component {
     routes: [
       { key: '1', title: 'Posts' },
       { key: '2', title: 'Events' },
+      { key: '3', title: 'Musollas' },
     ],
   };
 
@@ -108,6 +111,8 @@ export default class Tabview extends Component {
       return <Posts />;
     case '2':
       return <Events />;
+    case '3':
+      return <Musollas />;      
     default:
       return null;
     }

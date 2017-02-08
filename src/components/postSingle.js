@@ -2,12 +2,10 @@ import React, { Component } from 'react'
 import {TouchableOpacity, Button, Linking, Image, Text, View, TouchableHighlight, TouchableWithoutFeedback, UIManager, LayoutAnimation, Platform} from 'react-native'
 import {Card, CardSection} from './common'
 
+import pagesData from '../data/pagesData.js'
+
 
 class PostSingle extends Component{
-
-	getSecondPart(str) {
-    	return str.split('_')[1];
-	}
 
 	render(){
 
@@ -16,10 +14,19 @@ class PostSingle extends Component{
 		var objectId = post.object_id
 		var imageUrl = `http://graph.facebook.com/${objectId}/picture?type=normal`
 		var postUrl = post.link
+
 		var postTime = post.created_time
 
-		var byId = "nusms.ias"
-		var byName = "NUSMS Islam Awareness Series"
+		var pages = pagesData.pages
+		const getKey = (obj,val) => Object.keys(obj).find(key => obj[key] === val);
+		if(postUrl){
+			var parts = postUrl.split('/');
+			var byId = parts[3];
+			var byName = getKey(pages,byId)
+		} else {
+			var byId = "nusms"
+			var byName = "NUSMS"
+		}
 		var byImageUrl = `https://graph.facebook.com/${byId}/picture?type=small`
 		var byUrl = `http://facebook.com/${byId}`
 
