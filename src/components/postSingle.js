@@ -4,6 +4,7 @@ import {Card, CardSection} from './common'
 
 import pagesData from '../data/pagesData.js'
 
+var moment = require('moment');
 
 class PostSingle extends Component{
 
@@ -15,7 +16,7 @@ class PostSingle extends Component{
 		var imageUrl = `http://graph.facebook.com/${objectId}/picture?type=normal`
 		var postUrl = post.link
 
-		var postTime = post.created_time
+		var postTime = moment(post.created_time).fromNow()
 
 		var pages = pagesData.pages
 		const getKey = (obj,val) => Object.keys(obj).find(key => obj[key] === val);

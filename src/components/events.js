@@ -6,7 +6,6 @@ import { Spinner } from './common';
 
 import pagesData from '../data/pagesData.js'
 
-var moment = require('moment');
 
 class Events extends Component{
 

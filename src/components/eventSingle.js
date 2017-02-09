@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import {TouchableOpacity, Button, Linking, Image, Text, View, TouchableHighlight, TouchableWithoutFeedback, UIManager, LayoutAnimation, Platform} from 'react-native'
 import {Card, CardSection} from './common'
 
+var moment = require('moment');
+
 
 class EventSingle extends Component{
 
@@ -14,8 +16,8 @@ class EventSingle extends Component{
 		var name = event.name
 		var owner = event.owner.name
 		var description = event.description
-		var startTime = event.start_time
-		var endTime = event.end_time ? <Text style={smallTextStyle}>End: {event.end_time}</Text> : <View></View>
+		var startTime = moment(event.start_time).format('D MMM, h:mm a (ddd)')
+		var endTime = event.end_time ? <Text style={smallTextStyle}>End: {moment(event.end_time).format('D MMM, h:mm a (ddd)')}</Text> : <View></View>
 
 		var place = event.place ? <Text style={smallTextStyle}>Venue: {event.place.name}</Text> : <View></View>
 

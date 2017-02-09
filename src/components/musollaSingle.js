@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import {TouchableOpacity, Button, Linking, Image, Text, View, TouchableHighlight, TouchableWithoutFeedback, UIManager, LayoutAnimation, Platform} from 'react-native'
 import {Card, CardSection} from './common'
 
-
 class MusollaSingle extends Component{
 
 
