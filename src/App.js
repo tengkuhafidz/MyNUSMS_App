@@ -2,11 +2,11 @@ import React from 'react';
 import {Text,View} from 'react-native';
 
 import { Header } from './components/common';
-import Events from './components/events';
-import Posts from './components/posts';
-import Tabview from './components/tabview';
 
-// import venuesTest from './components/venuesTest';
+import Musollas from './components/musollas';
+import Posts from './components/posts';
+import Events from './components/posts';
+import Tabview from './components/tabview';
 
 
 const App = () => {
