@@ -14,7 +14,7 @@ class EventSingle extends Component{
 
 		var event = this.props.event
 		var name = event.name
-		var owner = event.owner.name
+		var owner = event.by
 		var description = event.description
 		var startTime = moment(event.start_time).format('D MMM, h:mm a (ddd)')
 		var endTime = event.end_time ? <Text style={smallTextStyle}>End: {moment(event.end_time).format('D MMM, h:mm a (ddd)')}</Text> : <View></View>
@@ -29,10 +29,10 @@ class EventSingle extends Component{
 		var imageUrl = event.cover ? <Image style={{width: 60, height: 60, resizeMode: 'cover', borderRadius: 5}} source={{uri: event.cover.source}}/> : <View style={{backgroundColor: "#333"}}/>
 		var link = event.ticket_uri ? <Text style={smallTextStyle}>Link: <Text style={linkStyle} onPress={()=>Linking.openURL(event.ticket_uri)}>{event.ticket_uri}</Text></Text> : <View></View>
 
-		
+
 
 		return (
-			
+
 			<CardSection >
 
 				<View style={{flex: 1, flexDirection: 'row'}}>
@@ -50,7 +50,7 @@ class EventSingle extends Component{
 						{link}
 					</View>
 				</View>
-	
+
 			</CardSection>
 
 
@@ -66,7 +66,7 @@ const styles = {
 	},
 	titleTextStyle: {
 		fontSize: 12,
-		fontWeight: 'bold' 
+		fontWeight: 'bold'
 	},
 	smallTextStyle: {
 		fontSize: 10,
@@ -89,7 +89,6 @@ const styles = {
 		flex: 1,
 		width: null
 	}
-};	
+};
 
 export default EventSingle;
-

@@ -6,15 +6,18 @@ import { Spinner } from './common';
 
 import Meteor, { createContainer } from 'react-native-meteor';
 
+var moment = require('moment');
+
 const SERVER_URL = 'ws://localhost:3000/websocket';
 
 class Events extends Component{
 	componentWillMount() {
-    	Meteor.connect(SERVER_URL);  
+    	Meteor.connect(SERVER_URL);
   	}
 
-	getUpcomingEvents(){
- 		return this.props.events.map(event => <EventSingle key={event.id} event={event}/>)
+	getUpcomingEvents(propsHere){
+
+ 		return propsHere.map(event => <EventSingle key={event.id} event={event}/>)
 
 		// return this.state.events.map(event=> <Text key={event.name}>{event.name}</Text>)
 
@@ -22,30 +25,27 @@ class Events extends Component{
 
 	render(){
 
-		events = this.props.events
+		var someProperties = ['past', 'ongoing', 'future'];
+		events = this.props[someProperties[0]]; //this.props.past
 
-  		if(!events)
-  			return <Spinner />
-
-  		console.log(events)
-
+		if (!events)
+			return <Spinner />
 
 		const {page, bottomSpace} = styles;
 
-
 		return (
 				<ScrollView style={page}>
-					<Card style={bottomSpace}>
-						{this.getUpcomingEvents()}
+						<Card style={bottomSpace}>
+							{this.getUpcomingEvents(events)}
 
-						<View style={bottomSpace}></View>
+							<View style={bottomSpace}></View>
 
-					</Card>
+						</Card>
+
 				</ScrollView>
-			
+
     	);
 	}
-
 
 }
 
@@ -57,11 +57,14 @@ const styles = {
   	marginBottom: 250
   }
 
-};	
+};
 export default createContainer(() => {
   Meteor.subscribe('allEvents');
   return {
-    events: Meteor.collection('events').find({}, {sort: {start_time: -1}}),
+    // events: Meteor.collection('events').find({}, {sort: {start_time: -1}}),
+    past: Meteor.collection('events').find({end_time:{ $lt: moment().format() }}, {sort: {start_time: -1}}),//past
+		ongoing: Meteor.collection('events').find({start_time: {$lte: moment().format()}, end_time: { $gt: moment().format() }}, {sort: {start_time: -1}}),//ongoing
+		upcoming: Meteor.collection('events').find({start_time: {$gt: moment().format()}}, {sort: {start_time: -1}}),//upcoming
+
   };
 }, Events);
-
