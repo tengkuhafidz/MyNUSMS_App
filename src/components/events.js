@@ -26,7 +26,7 @@ class Events extends Component{
 	render(){
 
 		var someProperties = ['past', 'ongoing', 'future'];
-		events = this.props[someProperties[0]]; //this.props.past
+		events = this.props[someProperties[0]]; //this.props.past?
 
 		if (!events)
 			return <Spinner />
